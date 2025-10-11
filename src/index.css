@@ -1,0 +1,554 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  background-image: image('https://classroomclipart.com/image/content2/30321/thumb.gif');
+}
+
+.app-header{
+  display: flex;
+  justify-content: space-around;
+}
+
+.movie-card {
+  background: var(--bg-color);
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+.movie-card:hover {
+  transform: scale(1.05);
+}
+.movie-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--accent-color);
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.search {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search input {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.search button {
+  background: white;
+  color: var(--accent-color);
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.movie-card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #111;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  height: 320px; /* Fixed card height */
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures uniform image fit */
+  border-radius: 10px;
+  background-color: #222;
+}
+
+/* Overlay for hover details */
+.movie-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
+}
+
+/* Add to Favourite Button (icon at top-right) */
+.fav-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: gold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.fav-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Dim poster when hovered */
+.movie-poster.dimmed {
+  filter: brightness(45%);
+}
+
+/* Hover text on poster */
+.hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.movie-card:hover .hover-text {
+  opacity: 1;
+}
+
+.hover-text h3 {
+  color: #ffcc00;
+  margin-bottom: 6px;
+}
+
+.hover-text p {
+  font-size: 0.85rem;
+  margin: 2px 0;
+}
+
+body.dark {
+  background-color: #111;
+  color: #fff;
+}
+
+body.light {
+  background-color: #f8f9fa;
+  color: #000;
+}
+
+.movie-card {
+  transition: transform 0.3s ease;
+}
+
+.skeleton-card {
+  background: #222;
+  border-radius: 10px;
+  padding: 10px;
+  width: 180px;
+  height: 280px;
+}
+
+.poster-skeleton {
+  width: 100%;
+  height: 220px;
+  background: #333;
+  border-radius: 10px;
+}
+
+.text-skeleton {
+  height: 10px;
+  margin-top: 10px;
+  background: #333;
+  border-radius: 5px;
+}
+
+.text-skeleton.short {
+  width: 60%;
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150px;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(to right, transparent 0%, #444 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+/* 🌙 Global Transitions */
+body, .navbar, .card {
+  transition: all 0.3s ease-in-out;
+}
+
+.bg-blur {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.dark-mode .bg-blur {
+  background-color: rgba(20, 20, 20, 0.85);
+}
+
+/* 🎬 Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  border-radius: 10px;
+  margin: 1rem auto;
+  max-width: 900px;
+}
+.hero-images {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.hero-card {
+  width: 180px;
+  height: 260px;
+  border-radius: 10px;
+}
+
+/* 🦴 Skeleton Loader */
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #cfcfcf 50%, #e0e0e0 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.3s infinite;
+}
+@keyframes shimmer {
+  100% { background-position: -400% 0; }
+}
+
+.movie-skeleton {
+  width: 200px;
+  height: 320px;
+  border-radius: 12px;
+}
+
+/* 🎥 Movie Grid */
+.movie-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 1.5rem;
+}
+
+/* 🩶 Favourites Transition */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ✨ Text Gradient */
+.text-gradient {
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  /* -webkit-background-clip: text; */
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, #ff0066, #ffcc00);
+  /* -webkit-background-clip: text; */
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-images {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-poster {
+  width: 180px;
+  height: 260px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-poster:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(255, 0, 102, 0.6);
+}
+.hero-poster {
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === 🎬 Parallax Effect Section === */
+.parallax-container {
+  perspective: 1000px;
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-item {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+}
+
+.hero-poster {
+  width: 260px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-poster:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+}
+
+/* Parallax Scroll Motion */
+@keyframes parallaxFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.parallax-item {
+  animation: parallaxFloat 6s ease-in-out infinite;
+}
+
+.parallax-item:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.parallax-item:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.parallax-item:nth-child(4) {
+  animation-delay: 3s;
+}
+
+/* 🎬 Parallax + Glow background */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #111 10%, #1c1f26 90%);
+  padding-bottom: 6rem;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 0, 100, 0.3), transparent 70%),
+              radial-gradient(circle at 70% 70%, rgba(0, 150, 255, 0.3), transparent 70%);
+  animation: move-bg 15s ease-in-out infinite alternate;
+  filter: blur(60px);
+  z-index: 0;
+}
+
+@keyframes move-bg {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50px, 50px); }
+}
+
+/* 🎥 Floating posters */
+.hero-images {
+  position: relative;
+  z-index: 2;
+  perspective: 800px;
+}
+
+.hero-poster {
+  width: 200px;
+  height: 280px;
+  border-radius: 16px;
+  object-fit: cover;
+  transition: transform 0.8s ease, box-shadow 0.8s ease;
+}
+
+.hero-poster:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+/* Parallax floating animation */
+.parallax-layer {
+  position: relative;
+  animation: floatUpDown 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatUpDown {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-15px); }
+}
+
+/* ======== CINEMATIC PARALLAX HERO ======== */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 30% 30%, #0c0f18, #111, #1a1f2b);
+  padding-bottom: 6rem;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250%;
+  height: 250%;
+  background: radial-gradient(circle at 40% 40%, rgba(255, 100, 100, 0.3), transparent 70%),
+              radial-gradient(circle at 80% 80%, rgba(100, 150, 255, 0.3), transparent 70%);
+  animation: move-bg 15s ease-in-out infinite alternate;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+@keyframes move-bg {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50px, 50px); }
+}
+
+/* Floating film icons (behind posters) */
+.floating-icons i {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 4rem;
+  z-index: 1;
+  animation: floatIcons 10s ease-in-out infinite alternate;
+}
+
+.icon-1 { top: 15%; left: 20%; animation-delay: 0s; }
+.icon-2 { top: 25%; right: 25%; animation-delay: 2s; }
+.icon-3 { bottom: 20%; left: 30%; animation-delay: 4s; }
+.icon-4 { bottom: 15%; right: 20%; animation-delay: 6s; }
+
+@keyframes floatIcons {
+  from { transform: translateY(0px) rotate(0deg); }
+  to { transform: translateY(-30px) rotate(10deg); }
+}
+
+/* Posters with parallax movement */
+.hero-images {
+  position: relative;
+  z-index: 3;
+  perspective: 800px;
+}
+
+.hero-poster {
+  width: 200px;
+  height: 280px;
+  border-radius: 16px;
+  object-fit: cover;
+  transition: transform 0.8s ease, box-shadow 0.8s ease;
+}
+
+.hero-poster:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.parallax-layer {
+  position: relative;
+  animation: floatUpDown 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatUpDown {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-15px); }
+}
+
+/* ======== GLASSMORPHIC NAVBAR ======== */
+.glass-dark {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+
+.navbar:hover {
+  backdrop-filter: blur(20px);
+  transform: translateY(-1px);
+}
