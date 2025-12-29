@@ -1,17 +1,51 @@
-<<<<<<< HEAD
-# React + Vite
+🎬 
+MovieVerse is a React-based movie discovery application that allows users to search for movies, view details, manage favourites, and switch between dark and light themes. The application integrates with the OMDb API and provides a smooth, interactive user experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+🚀 Features
+* 🔍 Search movies using the OMDb API
+* 🎞️ Display movie posters, titles, and release years
+* ❤️ Add and remove movies from favourites
+* 💾 Persistent favourites using browser localStorage
+* 🌙 Dark / ☀️ Light theme toggle
+* 🎥 Hover-based movie details (cast & director)
+* ✨ Animated title and modern UI design
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+🛠️ Technologies Used
+* React.js
+* JavaScript (ES6+)
+* OMDb API
+* CSS & Bootstrap
+* Lucide React Icons
+* LocalStorage
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# Movie-Search-App
-=======
-# Movie-Search-App
->>>>>>> b041f9b8c2a618bb433f5aa176768b1ba542ec86
+
+🧠 Core Concepts Applied
+* Component-based architecture
+* State management using React Hooks (`useState`)
+* Side effects handling using `useEffect`
+* DOM manipulation using `useRef`
+* API integration and error handling
+* UI performance optimization
+
+
+▶️ How to Run the Project
+1. Clone the repository
+2. Install dependencies
+   ```bash
+   npm install
+   ```
+3. Start the development server
+   ```bash
+   npm run dev
+   ```
+
+
+📈 Future Improvements
+* Add React Router for multi-page navigation
+* Implement user authentication
+* Include movie trailers and ratings
+* Improve accessibility
+* Convert to TypeScript
+
