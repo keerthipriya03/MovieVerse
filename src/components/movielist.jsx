@@ -1,17 +1,32 @@
 import React, { useState } from "react";
-import "./MovieList.css"; // make sure CSS is applied
+import "./MovieList.css";
 
-function MovieList({ movies=[],hasSearched, loading, addToFavourites, removeFromFavourites, favourites=[] }) {
+function MovieList({
+  movies = [],
+  hasSearched,
+  loading,
+  addToFavourites,
+  removeFromFavourites,
+  favourites = [],
+}) {
   const [hoveredMovieId, setHoveredMovieId] = useState(null);
+  const [details, setDetails] = useState({});
 
-  // 🩶 Show nothing if there are no movies and no search done yet
-  if (!movies || movies.length === 0) {
+  // 🧠 Prevent duplicates (optional but good for stability)
+  const uniqueMovies = movies.filter(
+    (movie, index, self) =>
+      index === self.findIndex((m) => m.imdbID === movie.imdbID)
+  );
+
+  // 🩶 Empty state handling
+  if (!uniqueMovies || uniqueMovies.length === 0) {
     if (hasSearched) {
       return <p className="text-center mt-3 text-danger">No movies found.</p>;
     }
-    return null; // nothing to show before search
+    return null;
   }
-  
+
+  // ⏳ Loading skeleton
   if (loading) {
     return (
       <div className="movie-grid">
@@ -26,13 +41,14 @@ function MovieList({ movies=[],hasSearched, loading, addToFavourites, removeFrom
     );
   }
 
-  // ... existing code
-  const [details, setDetails] = useState({});
-
+  // 🎬 Fetch detailed info on hover (cached)
   const fetchDetails = async (movieId) => {
-    if (details[movieId]) return;
+    if (details[movieId]) return; // Already fetched
+
     try {
-      const res = await fetch(`https://www.omdbapi.com/?apikey=d4b5fa97&i=${movieId}&plot=short`);
+      const res = await fetch(
+        `https://www.omdbapi.com/?apikey=d4b5fa97&i=${movieId}&plot=short`
+      );
       const data = await res.json();
       if (data.Response === "True") {
         setDetails((prev) => ({ ...prev, [movieId]: data }));
@@ -42,17 +58,15 @@ function MovieList({ movies=[],hasSearched, loading, addToFavourites, removeFrom
     }
   };
 
-  const isFavourite = (movie) => favourites?.some((fav) => fav.imdbID === movie.imdbID);
-
-  if (!movies || movies.length === 0) {
-    return <p className="no-movies-text">No movies found. Try searching for something!</p>;
-  }
+  // ❤️ Check if a movie is favourite
+  const isFavourite = (movie) =>
+    favourites?.some((fav) => fav.imdbID === movie.imdbID);
 
   return (
     <div className="movie-grid">
-      {movies.map((movie) => (
+      {uniqueMovies.map((movie, index) => (
         <div
-          key={movie.imdbID}
+          key={`${movie.imdbID}-${index}`} // ✅ Unique key fix
           className="movie-card"
           onMouseEnter={() => {
             setHoveredMovieId(movie.imdbID);
@@ -62,31 +76,40 @@ function MovieList({ movies=[],hasSearched, loading, addToFavourites, removeFrom
         >
           <div className="poster-container">
             <img
-              src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/200x300"}
+              src={
+                movie.Poster !== "N/A"
+                  ? movie.Poster
+                  : "https://via.placeholder.com/200x300"
+              }
               alt={movie.Title}
               className="movie-poster"
             />
 
-            {/* Favourite Heart Icon */}
+            {/* ❤️ Favourite toggle */}
             <div
               className={`fav-icon ${isFavourite(movie) ? "active" : ""}`}
-              onClick={() =>
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent hover issues
                 isFavourite(movie)
-                  ? removeFromFavourites(movie.imdbID)
-                  : addToFavourites(movie)
-              }
+                  ? removeFromFavourites(movie)
+                  : addToFavourites(movie);
+              }}
             >
               {isFavourite(movie) ? "❤️" : "🤍"}
             </div>
 
-            {/* Hover overlay details */}
+            {/* Hover details overlay */}
             {hoveredMovieId === movie.imdbID && (
               <div className="hover-overlay">
                 <h3>{movie.Title}</h3>
                 {details[movie.imdbID] ? (
                   <>
-                    <p><strong>Cast:</strong> {details[movie.imdbID].Actors}</p>
-                    <p><strong>Director:</strong> {details[movie.imdbID].Director}</p>
+                    <p>
+                      <strong>Cast:</strong> {details[movie.imdbID].Actors}
+                    </p>
+                    <p>
+                      <strong>Director:</strong> {details[movie.imdbID].Director}
+                    </p>
                   </>
                 ) : (
                   <p>Loading...</p>
@@ -95,7 +118,7 @@ function MovieList({ movies=[],hasSearched, loading, addToFavourites, removeFrom
             )}
           </div>
 
-          {/* Below poster title/year */}
+          {/* 📅 Movie Info */}
           <div className="movie-info">
             <h4>{movie.Title}</h4>
             <p>{movie.Year}</p>
@@ -107,3 +130,5 @@ function MovieList({ movies=[],hasSearched, loading, addToFavourites, removeFrom
 }
 
 export default MovieList;
+
+

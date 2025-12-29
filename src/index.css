@@ -8,11 +8,43 @@
   --text-color: #ffffff;
 }
 
+  /* background-image: image('https://classroomclipart.com/image/content2/30321/thumb.gif'); */
+
 body {
-  background: var(--bg-color);
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
   color: var(--text-color);
-  background-image: image('https://classroomclipart.com/image/content2/30321/thumb.gif');
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
 }
+
+.bg-animated {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background: linear-gradient(-45deg, #1e3c72, #2a5298, #000000, #3c1053);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  filter: blur(20px);
+  opacity: 0.8;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 .app-header{
   display: flex;
@@ -42,7 +74,7 @@ body {
   align-items: center;
   padding: 1rem;
   background: var(--accent-color);
-  color: white;
+  color: black;
 }
 
 .logo {
@@ -106,7 +138,7 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  /* color: #fff; */
   opacity: 0;
   transition: opacity 0.3s ease;
   display: flex;
