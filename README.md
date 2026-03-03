@@ -1,6 +1,7 @@
 🎬 
 MovieVerse is a React-based movie discovery application that allows users to search for movies, view details, manage favourites, and switch between dark and light themes. The application integrates with the OMDb API and provides a smooth, interactive user experience.
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue)](https://movieverse-2lgh.onrender.com)
 
 🚀 Features
 * 🔍 Search movies using the OMDb API
@@ -28,6 +29,9 @@ MovieVerse is a React-based movie discovery application that allows users to sea
 * DOM manipulation using `useRef`
 * API integration and error handling
 * UI performance optimization
+
+Screenshots
+<img width="1846" height="584" alt="image" src="https://github.com/user-attachments/assets/292a255f-6802-464e-9826-6d9a52f5a03a" />
 
 
 ▶️ How to Run the Project
