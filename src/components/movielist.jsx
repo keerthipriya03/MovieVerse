@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./MovieList.css";
+import "./movielist.css";
 
 function MovieList({
   movies = [],
