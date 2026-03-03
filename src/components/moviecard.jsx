@@ -15,12 +15,13 @@ function MovieCard({ movie, favourites, addToFavourites, removeFromFavourites })
       {/* ❤️ Favourite Icon */}
       <button
         onClick={() =>
-          isFav ? removeFromFavourites(movie.imdbID) : addToFavourites(movie)
+          isFav ? removeFromFavourites(movie) : addToFavourites(movie)
         }
         className="absolute top-3 right-3 text-white"
       >
         {isFav ? <Heart fill="red" /> : <Heart />}
       </button>
+
 
       {/* 🩶 Overlay on hover */}
       <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end">

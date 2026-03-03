@@ -3,30 +3,39 @@ import "./MovieList.css";
 
 function MovieList({
   movies = [],
-  hasSearched,
-  loading,
+  hasSearched = false,
+  loading = false,
   addToFavourites,
   removeFromFavourites,
   favourites = [],
+  searchQuery = "",
 }) {
   const [hoveredMovieId, setHoveredMovieId] = useState(null);
   const [details, setDetails] = useState({});
 
-  // 🧠 Prevent duplicates (optional but good for stability)
+  const normalizedQuery = searchQuery.toLowerCase();
+
+  const movieMatchesSearch = (movie) => {
+    if (movie.Title.toLowerCase().includes(normalizedQuery)) return true;
+
+    const detail = details[movie.imdbID];
+    if (!detail) return false;
+
+    if (detail.Actors?.toLowerCase().includes(normalizedQuery)) return true;
+    if (detail.Director?.toLowerCase().includes(normalizedQuery)) return true;
+
+    return false;
+  };
+
   const uniqueMovies = movies.filter(
-    (movie, index, self) =>
-      index === self.findIndex((m) => m.imdbID === movie.imdbID)
+    (movie, index, self) => index === self.findIndex((m) => m.imdbID === movie.imdbID)
   );
 
-  // 🩶 Empty state handling
   if (!uniqueMovies || uniqueMovies.length === 0) {
-    if (hasSearched) {
-      return <p className="text-center mt-3 text-danger">No movies found.</p>;
-    }
+    if (hasSearched) return <p className="text-center mt-3 text-danger">No movies found.</p>;
     return null;
   }
 
-  // ⏳ Loading skeleton
   if (loading) {
     return (
       <div className="movie-grid">
@@ -41,10 +50,8 @@ function MovieList({
     );
   }
 
-  // 🎬 Fetch detailed info on hover (cached)
   const fetchDetails = async (movieId) => {
-    if (details[movieId]) return; // Already fetched
-
+    if (details[movieId]) return;
     try {
       const res = await fetch(
         `https://www.omdbapi.com/?apikey=d4b5fa97&i=${movieId}&plot=short`
@@ -58,15 +65,13 @@ function MovieList({
     }
   };
 
-  // ❤️ Check if a movie is favourite
-  const isFavourite = (movie) =>
-    favourites?.some((fav) => fav.imdbID === movie.imdbID);
+  const isFavourite = (movie) => favourites?.some((fav) => fav.imdbID === movie.imdbID);
 
   return (
     <div className="movie-grid">
       {uniqueMovies.map((movie, index) => (
         <div
-          key={`${movie.imdbID}-${index}`} // ✅ Unique key fix
+          key={`${movie.imdbID}-${index}`}
           className="movie-card"
           onMouseEnter={() => {
             setHoveredMovieId(movie.imdbID);
@@ -76,40 +81,28 @@ function MovieList({
         >
           <div className="poster-container">
             <img
-              src={
-                movie.Poster !== "N/A"
-                  ? movie.Poster
-                  : "https://via.placeholder.com/200x300"
-              }
+              src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/200x300"}
               alt={movie.Title}
               className="movie-poster"
             />
 
-            {/* ❤️ Favourite toggle */}
             <div
               className={`fav-icon ${isFavourite(movie) ? "active" : ""}`}
               onClick={(e) => {
-                e.stopPropagation(); // Prevent hover issues
-                isFavourite(movie)
-                  ? removeFromFavourites(movie)
-                  : addToFavourites(movie);
+                e.stopPropagation();
+                isFavourite(movie) ? removeFromFavourites(movie) : addToFavourites(movie);
               }}
             >
               {isFavourite(movie) ? "❤️" : "🤍"}
             </div>
 
-            {/* Hover details overlay */}
             {hoveredMovieId === movie.imdbID && (
               <div className="hover-overlay">
                 <h3>{movie.Title}</h3>
                 {details[movie.imdbID] ? (
                   <>
-                    <p>
-                      <strong>Cast:</strong> {details[movie.imdbID].Actors}
-                    </p>
-                    <p>
-                      <strong>Director:</strong> {details[movie.imdbID].Director}
-                    </p>
+                    <p><strong>Cast:</strong> {details[movie.imdbID].Actors}</p>
+                    <p><strong>Director:</strong> {details[movie.imdbID].Director}</p>
                   </>
                 ) : (
                   <p>Loading...</p>
@@ -118,7 +111,6 @@ function MovieList({
             )}
           </div>
 
-          {/* 📅 Movie Info */}
           <div className="movie-info">
             <h4>{movie.Title}</h4>
             <p>{movie.Year}</p>
@@ -130,5 +122,3 @@ function MovieList({
 }
 
 export default MovieList;
-
-
